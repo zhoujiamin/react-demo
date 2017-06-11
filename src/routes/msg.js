@@ -56,3 +56,9 @@ export default {
     onEnter: userAuth
   }]
 }
+
+/**
+ * getComponent/getIndexRoute/getChildRoutes
+ * 可以用于异步加载组件
+ * 与webpack的code spilit结合
+ **/

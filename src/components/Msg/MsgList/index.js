@@ -5,8 +5,24 @@ import NoticeBar from './NoticeBar'
 import DisplayControl from './DisplayControl'
 import OptBtnGroup from 'COMPONENT/Msg/OptBtnGroup'
 import dateTimeFormatter from 'UTIL/dateTimeFormatter'
+import PropTypes from 'prop-types'
 
 export default class MsgList extends Component {
+  /* 属性检查 */
+  static propTypes = {
+    userData: PropTypes.object.isRequired,
+    msg: PropTypes.object.isRequired,
+    fetchMsg: PropTypes.func.isRequired, 
+    addMsg: PropTypes.func.isRequired, 
+    modMsg: PropTypes.func.isRequired, 
+    delMsg: PropTypes.func.isRequired,
+    specifyAuthor: PropTypes.func.isRequired, 
+    goPrevPage: PropTypes.func.isRequired, 
+    goNextPage: PropTypes.func.isRequired,
+    changeQuantity: PropTypes.func.isRequired, 
+    resetDisplayControl: PropTypes.func.isRequired
+  }
+
   componentWillMount () {
     let { author } = this.props.location.query
     this.props.specifyAuthor(author)

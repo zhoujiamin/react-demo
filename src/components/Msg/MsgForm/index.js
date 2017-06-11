@@ -1,8 +1,9 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import msgService from 'SERVICE/msgService'
 import handleChange from 'MIXIN/handleChange'
 import tpl from './msg-form.jsx' // 分拆写 JSX 模板以减少单文件代码量
-
+import PropTypes from 'prop-types'
+import { replace } from 'react-router-redux'
 /* 为什么不直接 const initState = { ... } 而是用函数返回呢？
    皆因直接传 initState 仅是传引用，initState 本身可被修改 */
 const getInitState = () => ({ id: '', title: '', content: '' })
@@ -15,7 +16,21 @@ export default class MsgForm extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
   }
-
+  /* 属性检查 */
+/*  static propTypes = {
+    userData: PropTypes.object.isRequired,
+    msg: PropTypes.object.isRequired,
+    fetchMsg: PropTypes.func.isRequired, 
+    addMsg: PropTypes.func.isRequired, 
+    modMsg: PropTypes.func.isRequired, 
+    delMsg: PropTypes.func.isRequired,
+    specifyAuthor: PropTypes.func.isRequired, 
+    goPrevPage: PropTypes.func.isRequired, 
+    goNextPage: PropTypes.func.isRequired,
+    changeQuantity: PropTypes.func.isRequired, 
+    resetDisplayControl: PropTypes.func.isRequired
+  }*/
+  
   constructor (props, context) {
     // 既然用到了 context，显然需要 super 一下咯
     // 实际上最完善的形式的确就是如下写法
@@ -89,7 +104,8 @@ export default class MsgForm extends Component {
     this.updateState = () => {}
 
     this.props[opt](this.state).then(({ id }) => {
-      this.context.router.replace(`/msg/detail/${id}`)
+      /* this.context.router.replace(`/msg/detail/${id}`)*/
+      this.props.changeRouter(replace(`/msg/detail/${id}`))
     })
   }
 

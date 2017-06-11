@@ -48,9 +48,14 @@ const delMsg = msgId => dispatch =>
       payload: msgId
     }))
 
+
+const changeRouter = Router => dispatch => {
+  dispatch(Router)
+}
+
 /* default 导出所有 Action Creators */
 export default {
-  fetchMsg, addMsg, modMsg, delMsg
+  fetchMsg, addMsg, modMsg, delMsg, changeRouter
 }
 
 // ================================

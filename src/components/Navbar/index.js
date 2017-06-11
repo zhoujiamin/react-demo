@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { IndexLink, Link } from 'react-router'
 import LoginForm from './LoginForm'
 import LogoutDropdown from './LogoutDropdown'
+import PropTypes from 'prop-types'
 
 /* 导航栏全局显示，控制着用户的登录注销 */
 
@@ -11,6 +12,14 @@ import LogoutDropdown from './LogoutDropdown'
   require('ACTION/user').default
 )
 export default class Navbar extends Component {
+  /* 属性检查 */
+  static propTypes = {
+    userData: PropTypes.object.isRequired,
+    login: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
+    checkLogin: PropTypes.func.isRequired
+  }
+
   componentWillMount () {
     console.info('[Navbar] 初始化：检查用户是否已经登录')
     console.info('[TIPS] 由于有Redux Logger，故之后就不手动打印动作了')

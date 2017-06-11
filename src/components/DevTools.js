@@ -14,7 +14,7 @@ const DevTools = createDevTools(
     toggleVisibilityKey='ctrl-h'
     changePositionKey='ctrl-q'
     /* 设置默认隐藏，不然每次刷新都自动显示，相当烦人 */
-    defaultIsVisible={false}>
+    defaultIsVisible={true}>
     <LogMonitor theme='tomorrow' />
   </DockMonitor>
 )

@@ -7,12 +7,14 @@ import syncHistoryWithStore from './syncHistoryWithStore'
 // ======================================================
 // 实例化 Store
 // ======================================================
-const store = createStore(
+// 
+
+ const store = createStore(
   createRootReducer(),
   window.__INITIAL_STATE__ || {}, // 前后端同构（服务端渲染）数据同步
   compose(
     applyMiddleware(...middlewares),
-    ...enhancers
+     ...enhancers
   )
 )
 export default store
