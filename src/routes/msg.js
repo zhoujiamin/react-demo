@@ -4,7 +4,7 @@ import createContainer from 'UTIL/createContainer'
 
 const connectComponent = createContainer(
   ({ userData, msg }) => ({ userData, msg }), // mapStateToProps
-  require('ACTION/msg').default               // mapActionCreators
+  {...require('ACTION/msg').default, ...require('ACTION/routeChange').default}               // mapActionCreators
 )
 
 export default {

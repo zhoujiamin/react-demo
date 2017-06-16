@@ -26,6 +26,7 @@ const addMsg = msgBody => dispatch =>
         type: ADD_MSG,
         payload: msg
       })
+      debugger
       return msg
     })
 
@@ -33,6 +34,7 @@ const modMsg = msgBody => dispatch =>
   msgService
     .mod(msgBody)
     .then(msg => {
+      debugger
       dispatch({
         type: MOD_MSG,
         payload: msg

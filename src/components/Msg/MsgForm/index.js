@@ -3,7 +3,7 @@ import msgService from 'SERVICE/msgService'
 import handleChange from 'MIXIN/handleChange'
 import tpl from './msg-form.jsx' // 分拆写 JSX 模板以减少单文件代码量
 import PropTypes from 'prop-types'
-import { replace } from 'react-router-redux'
+/* import { replace } from 'react-router-redux'*/
 /* 为什么不直接 const initState = { ... } 而是用函数返回呢？
    皆因直接传 initState 仅是传引用，initState 本身可被修改 */
 const getInitState = () => ({ id: '', title: '', content: '' })
@@ -13,11 +13,11 @@ const getInitState = () => ({ id: '', title: '', content: '' })
 const isAddMode = pathname => pathname.startsWith('/msg/add')
 
 export default class MsgForm extends Component {
-  static contextTypes = {
+  /* static contextTypes = {
     router: PropTypes.object.isRequired
-  }
+  }*/
   /* 属性检查 */
-/*  static propTypes = {
+  static propTypes = {
     userData: PropTypes.object.isRequired,
     msg: PropTypes.object.isRequired,
     fetchMsg: PropTypes.func.isRequired, 
@@ -29,18 +29,20 @@ export default class MsgForm extends Component {
     goNextPage: PropTypes.func.isRequired,
     changeQuantity: PropTypes.func.isRequired, 
     resetDisplayControl: PropTypes.func.isRequired
-  }*/
+  }
   
-  constructor (props, context) {
+  constructor (props) {
     // 既然用到了 context，显然需要 super 一下咯
     // 实际上最完善的形式的确就是如下写法
-    super(props, context)
-
+    /* super(props, context)*/
+    super(props)
     // 初始 state 必须定义，否则会报错
     // 就像在 Vue 中需要在 data 中定义默认值
     this.state = getInitState()
 
     this.handleChange = handleChange.bind(this) // mixin
+    // 绑定到this
+    this.tpl = tpl.bind(this)
   }
 
   componentDidMount() {
@@ -53,6 +55,7 @@ export default class MsgForm extends Component {
    * 故需要利用本函数更新 state。不在乎性能者可利用我们的 hack：Redirect 组件
    */
   componentWillReceiveProps(nextProps) {
+    debugger
     this.updateState(nextProps) // 传入 nextProps
   }
 
@@ -98,20 +101,23 @@ export default class MsgForm extends Component {
     evt.preventDefault()
     let { pathname } = this.props.location
     let opt = isAddMode(pathname) ? 'addMsg' : 'modMsg'
-
+    debugger
     // 提交后，由于会触发 componentWillReceiveProps
     // 因此这里需要把该函数“清空”，避免浪费性能
     this.updateState = () => {}
 
     this.props[opt](this.state).then(({ id }) => {
+      debugger
       /* this.context.router.replace(`/msg/detail/${id}`)*/
-      this.props.changeRouter(replace(`/msg/detail/${id}`))
+      this.props.replaceRoute(`/msg/detail/${id}`)
     })
   }
 
   render () {
     // 使用 call/apply，让 tpl 中的上下文与当前一致
     // （最佳实践应该跟 mixin 一样，在构造函数中使用 bind 绑定）
-    return tpl.call(this)
+    // return tpl.call(this)
+    // zjm:进行最佳实践
+     return this.tpl()
   }
 }

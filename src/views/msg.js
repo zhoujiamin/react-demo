@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 const MsgView = ({ children, location }) => (
   <div>
     { !location.pathname.startsWith('/msg/add') &&
+      !location.pathname.startsWith('/msg/modify') &&
       <Link
         className="btn btn-default btn-lg btn-block"
         to="/msg/add">

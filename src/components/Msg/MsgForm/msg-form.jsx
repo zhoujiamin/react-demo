@@ -38,7 +38,7 @@ export default function () {
           <button
             type="button"
             className="btn btn-warning"
-            onClick={() => this.context.router.goBack()}>
+            onClick={() => this.props.goBackRoute()}>
             <span className="glyphicon glyphicon-arrow-left"></span>
             &nbsp;取消
           </button>
